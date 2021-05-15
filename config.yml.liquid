@@ -1,0 +1,25 @@
+in:
+  type: mongodb
+  uri: "mongodb://192.168.33.10:27017/adsist_db"
+  collection: 'users'
+  query: '{}'
+  json_column_name: record
+filters:
+  - type: expand_json
+    json_column_name: record
+    expanded_columns:
+      - {name: _id, type: string}
+      - {name: name, type: string}
+      - {name: updated_at, type: string}
+  - type: rename
+    columns:
+      _id: id
+out:
+  type: bigquery
+  auth_method: json_key
+  json_keyfile: ./big_key.json
+  project: gs4project-1510195974745
+  dataset: testdata
+  table: user
+  auto_create_table: true
+  schema_file: ./schema.json
