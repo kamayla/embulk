@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  laravel-embulk-study:
+    container_name: laravel-embulk-study
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    volumes:
+    - ./laravel:/var/www
+    networks:
+    - embulk-study-network
+
+  nginx-embulk-study:
+    image: nginx
+    container_name: nginx-embulk-study
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ./laravel:/var/www
+    - ./nginx_conf/default.conf:/etc/nginx/conf.d/default.conf
+    - ./cert-key:/etc/nginx/ssl
+    depends_on:
+    - laravel-embulk-study
+    networks:
+    - embulk-study-network
+
+  db-embulk-study:
+    image: mysql:5.7
+    container_name: db-embulk-study
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+    - embulk-study-mysql-volume:/var/lib/mysql
+    ports:
+    - 3306:3306
+    networks:
+    - embulk-study-network
+
+networks:
+  embulk-study-network:
+    driver: bridge
+volumes:
+  embulk-study-mysql-volume:
+    driver: local
