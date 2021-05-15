@@ -1,0 +1,15 @@
+# ここでlocalのmysqlにアクスしてテーブル情報を取ってきます
+in:
+{% include 'in' %}
+  table: users
+
+# ここで個人情報のマスキングなどを行う処理を書きます
+filters:
+  - type: eval
+    eval_columns:
+      - password: Digest::MD5.hexdigest(value)
+
+# ここでBigqueryに接続してデータを流し込みます
+out:
+{% include 'out' %}
+  table: users

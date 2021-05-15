@@ -1,0 +1,9 @@
+# ここでlocalのmysqlにアクスしてテーブル情報を取ってきます
+in:
+{% include 'in' %}
+  table: insights
+
+# ここでBigqueryに接続してデータを流し込みます
+out:
+{% include 'out' %}
+  table: insights

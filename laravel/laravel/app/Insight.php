@@ -16,5 +16,6 @@ class Insight extends Model
         'conversions',
         'clicks',
         'spend',
+        'created_at',
     ];
 }

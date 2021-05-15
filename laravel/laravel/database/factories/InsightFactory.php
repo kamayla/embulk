@@ -19,9 +19,10 @@ use Illuminate\Support\Str;
 
 $factory->define(Insight::class, function (Faker $faker) {
     return [
-        'impressions' => $faker->numberBetween(5000,10000),
-        'conversions' => $faker->numberBetween(0,1),
-        'clicks' => $faker->numberBetween(10,100),
-        'spend' => $faker->numberBetween(500,3000),
+        'impressions' => $faker->numberBetween(1, mt_rand(1000, 10000)),
+        'conversions' => $faker->numberBetween(0, mt_rand(1, 3)),
+        'clicks' => $faker->numberBetween(1, mt_rand(1, 100)),
+        'spend' => $faker->numberBetween(500, mt_rand(501, 3000)),
+        'created_at' => $faker->dateTimeBetween('-3 years', 'now'),
     ];
 });
