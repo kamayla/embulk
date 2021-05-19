@@ -12,3 +12,14 @@ exec:
 
 seed:
 	@make exec cmd="php artisan db:seed"
+
+install:
+	@make exec cmd="composer install"
+
+migrate:
+	@make exec cmd="php artisan migrate"
+
+setup:
+	@make install
+	@make migrate
+	@make seed
