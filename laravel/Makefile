@@ -20,6 +20,7 @@ migrate:
 	@make exec cmd="php artisan migrate"
 
 setup:
+	@cp ./laravel/.env.example ./laravel/.env
 	@make install
 	@make migrate
 	@make seed
